@@ -1,9 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-
-class MemeRepository {
-  public getMemes() {
-    let files = fs.readdirSync(path.resolve('src', 'assets', 'sounds'));
+export class MemeRepository {
+  public getMemes(): string[] {
+    let files = fs.readdirSync(
+      path.resolve(__dirname, '..', '..', 'assets', 'sounds'),
+    );
 
     let stringMemes: string[] = [];
 
@@ -15,9 +16,7 @@ class MemeRepository {
     return stringMemes;
   }
 
-  public checkMemeExist(requestMeme: string): boolean {
-    return !!this.getMemes().find(meme => meme === requestMeme);
+  public memeExists(meme: string): boolean {
+    return !!this.getMemes().find(m => m === meme);
   }
 }
-
-export default MemeRepository;
