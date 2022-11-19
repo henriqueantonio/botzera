@@ -8,9 +8,14 @@ export const setCommands = async (): Promise<Collection<unknown, Command>> => {
   const commands = new Collection<unknown, Command>();
 
   const commandsPath = path.join(__dirname, 'commands');
+
   const commandFiles = fs
     .readdirSync(commandsPath)
-    .filter(file => file.endsWith('.ts') && !file.endsWith('.d.ts'));
+    .filter(
+      file =>
+        (file.endsWith('.ts') && !file.endsWith('.d.ts')) ||
+        file.endsWith('.js'),
+    );
 
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
