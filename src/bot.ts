@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { REST, Client, Routes } from 'discord.js';
+import { REST, Client, Routes, MessageFlags } from 'discord.js';
 
 import { setCommands } from './commands';
 
@@ -19,7 +19,7 @@ void (async () => {
   client.login(DISCORD_TOKEN);
 
   /* On bot ready */
-  client.once('ready', () => {
+  client.once('clientReady', () => {
     client.user?.setActivity('!ajuda');
     console.log(`Bot online: ${client.user?.tag}`);
   });
@@ -36,7 +36,7 @@ void (async () => {
     if (!command) {
       await interaction.reply({
         content: 'Comando não encontrado',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -47,7 +47,7 @@ void (async () => {
       console.log(error);
       await interaction.reply({
         content: 'Aconteceu um erro ao executar esse comando.',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
   });
